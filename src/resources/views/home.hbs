@@ -207,7 +207,6 @@
         }
       },
     });
-
     const doughnutChartCanvas = document.getElementById('doughnutChart');
     new Chart(doughnutChartCanvas, {
       type: 'doughnut',
@@ -265,107 +264,107 @@
         }
       }]
     });
+    
+  }
+  const leaveReportCanvas = document.getElementById('leaveReport');
+  // Chuẩn bị dữ liệu cho biểu đồ
+  const labels = [];
+  const personData = [];
+  const collectorData = [];
 
-    const leaveReportCanvas = document.getElementById('leaveReport');
-    // Chuẩn bị dữ liệu cho biểu đồ
-    const labels = [];
-    const personData = [];
-    const collectorData = [];
-
-    // Lặp qua dailyCounts để tạo các mảng dữ liệu cho biểu đồ
-    for (const date in dataUser) {
-      labels.push(date);
-      personData.push(dataUser[date].person);
-      collectorData.push(dataUser[date].collector);
-    }
-    new Chart(leaveReportCanvas, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Person",
-            data: personData,
-            backgroundColor: ['#2E89F6'],
-            borderColor: [
-              '#2278FB',
-            ],
-            borderWidth: 1.5,
-            fill: true, // 3: no fill
-            pointBorderWidth: 1,
-            pointRadius: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-            pointHoverRadius: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-            pointBackgroundColor: ['#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3)'],
-            pointBorderColor: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff',],
-          },
-          {
-            label: "Collector",
-            data: collectorData,
-            backgroundColor: ['#6BDFDB'],
-            borderColor: ['#5FCEE0'],
-            borderWidth: 1.5,
-            fill: true, // 3: no fill
-            pointBorderWidth: 1,
-            pointRadius: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-            pointHoverRadius: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-            pointBackgroundColor: ['#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF)'],
-            pointBorderColor: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff',],
-          }
-        ]
+  // Lặp qua dailyCounts để tạo các mảng dữ liệu cho biểu đồ
+  for (const date in dataUser) {
+    labels.push(date);
+    personData.push(dataUser[date].person);
+    collectorData.push(dataUser[date].collector);
+  }
+  new Chart(leaveReportCanvas, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Person",
+          data: personData,
+          backgroundColor: ['#2E89F6'],
+          borderColor: [
+            '#2278FB',
+          ],
+          borderWidth: 1.5,
+          fill: true, // 3: no fill
+          pointBorderWidth: 1,
+          pointRadius: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+          pointHoverRadius: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+          pointBackgroundColor: ['#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3)'],
+          pointBorderColor: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff',],
+        },
+        {
+          label: "Collector",
+          data: collectorData,
+          backgroundColor: ['#6BDFDB'],
+          borderColor: ['#5FCEE0'],
+          borderWidth: 1.5,
+          fill: true, // 3: no fill
+          pointBorderWidth: 1,
+          pointRadius: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+          pointHoverRadius: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+          pointBackgroundColor: ['#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF)'],
+          pointBorderColor: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff',],
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      elements: {
+        line: {
+          tension: 0.4,
+        }
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        elements: {
-          line: {
-            tension: 0.4,
-          }
-        },
-        scales: {
-          yAxes: {
-            display: true,
-            grid: {
-              display: false,
-              drawBorder: false,
-              color: "rgba(255,255,255,.05)",
-              zeroLineColor: "rgba(255,255,255,.05)",
-            },
-            ticks: {
-              beginAtZero: true,
-              autoSkip: true,
-              maxTicksLimit: 5,
-              fontSize: 10,
-              color: "#6B778C",
-              font: {
-                size: 10,
-              }
-            }
+      scales: {
+        yAxes: {
+          display: true,
+          grid: {
+            display: false,
+            drawBorder: false,
+            color: "rgba(255,255,255,.05)",
+            zeroLineColor: "rgba(255,255,255,.05)",
           },
-          xAxes: {
-            display: true,
-            grid: {
-              display: false,
-            },
-            ticks: {
-              beginAtZero: false,
-              autoSkip: true,
-              maxTicksLimit: 7,
-              fontSize: 10,
-              color: "#6B778C",
-              font: {
-                size: 10,
-              }
+          ticks: {
+            beginAtZero: true,
+            autoSkip: true,
+            maxTicksLimit: 5,
+            fontSize: 10,
+            color: "#6B778C",
+            font: {
+              size: 10,
             }
           }
         },
-        plugins: {
-          legend: {
-            display: true,
+        xAxes: {
+          display: true,
+          grid: {
+            display: false,
+          },
+          ticks: {
+            beginAtZero: false,
+            autoSkip: true,
+            maxTicksLimit: 7,
+            fontSize: 10,
+            color: "#6B778C",
+            font: {
+              size: 10,
+            }
           }
         }
+      },
+      plugins: {
+        legend: {
+          display: true,
+        }
       }
-    });
-  }
+    }
+  });
   function capitalizeKeys(obj) {
     const newObj = {};
     for (let key in obj) {

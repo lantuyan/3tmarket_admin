@@ -51,9 +51,9 @@ exports.createUser = (req, res) => {
     .then(response_create => {
         console.log('Person added successfully:', response_create);
         var userIdDB = response_create.$id;
-        res.render('person/create_user', { alert: 'User added successfully.' });
         databases.createDocument(process.env.APPWRITE_DB,process.env.APPWRITE_USER_COLLECTION, userIdDB, {email,username,role : "person",name,phonenumber,zalonumber,address,uid:userIdDB});
-      }).catch(error => {
+        res.render('person/create_user', { alert: 'User added successfully.' });
+    }).catch(error => {
         console.error('Error adding user:', error);
         res.render('person/create_user', { alert: 'Failed to add user. Please try again later.' });
       }); 

@@ -44,9 +44,9 @@ exports.createCollector = (req, res) => {
     .then(response_create => {
         console.log('Collector added successfully:', response_create);
         var userIdDB = response_create.$id;
-        res.render('collector/create_collector', { alert: 'User added successfully.' });
         databases.createDocument(process.env.APPWRITE_DB,process.env.APPWRITE_USER_COLLECTION, userIdDB, {email,username,role : "collector",name,phonenumber,zalonumber,address,uid:userIdDB});
-      }).catch(error => {
+        res.render('collector/create_collector', { alert: 'User added successfully.' });
+    }).catch(error => {
         console.error('Error adding user:', error);
         res.render('collector/create_collector', { alert: 'Failed to add user. Please try again later.' });
       }); 
