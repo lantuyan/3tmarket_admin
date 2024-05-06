@@ -10,10 +10,7 @@
                         <div class="card-body">
                             <div class="d-sm-flex justify-content-between align-items-start">
                                 <div>
-                                    <h4 class="card-title card-title-dash ">Người dân</h4>
-                                </div>
-                                <div>
-                                    <a href="/users/create" class="btn btn-success align-self-center" role="button" >Thêm người dân</a>
+                                    <h4 class="card-title card-title-dash ">Danh sách đen</h4>
                                 </div>
                             </div>
                             <div class="table-responsive  mt-3">
@@ -21,29 +18,29 @@
                                     style="width:100%">
                                     <thead>
                                         <tr>
-                                
+                                      
                                             <th>Email</th>
                                             <th>Số điện thoại</th>
                                             <th>Zalo</th>
                                             <th>Địa chỉ</th>
-                                            <th>Vai trò chính</th>
+                                            <th>Role</th>
                                             <th>Hoạt động</th> <!-- Thêm cột Action -->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{#each personData}}
+                                        {{#each blacklistData}}
                                         <tr>
-                                            
+                          
                                             <td>{{email }}</td>
                                             <td>{{phonenumber }}</td>
                                             <td>{{zalonumber }}</td>
                                             <td>{{address}}</td>
-                                            <td>{{role}}</td>
+                                            <td>{{role }}</td>
+                        
                                             <td>
-                                         
-                                                <a href="/users/{{id}}" class="btn btn-primary btn-sm" title="Edit user" onclick="return"><i class="bi bi-pencil"></i> </a>
-                                                <a href="/users/delete/{{id}}" class="btn btn-danger btn-sm" title="Delete user" id="deleteBtn" data-id={{id}}><i class="bi bi-trash"></i> </a>
-                                                <a href="/users/blacklist/{{id}}" class="btn btn-secondary btn-sm" title="Ban user"  id="BanBtn" data-id={{id}}><i class="bi bi-person-x"></i> </a>
+                                        
+                                                <a href="/blacklist/delete/{{id}}" class="btn btn-danger btn-sm" title="Delete user" id="deleteBtn" data-id={{id}}><i class="bi bi-trash"></i> </a>
+                                                <a href="/blacklist/unban/{{id}}" class="btn btn-success btn-sm" title="Unban user"id="BanBtn" data-id={{id}}><i class="bi bi-person-x"></i> </a>
                                             </td>
                                         </tr>
                                         {{/each}}
@@ -64,8 +61,6 @@
 <script>
     $(document).ready(function () {
         new DataTable('#example');
-
-        // Sự kiện click
         $(document).on('click', '#deleteBtn', function(e) {
         e.preventDefault();
         const id =  $(this).data('id');
@@ -80,12 +75,12 @@
             {
                 $.ajax({
                     type: 'GET',
-                    url: '/users/delete/' + id,
+                    url: '/blacklist/delete/' + id,
                     success: function(response) {
                         console.log(response);
                         // Xử lý thành công, có thể làm gì đó nếu cần thiết
-                        swal("Đã xóa!", "Người dân đã được xóa", "success").then(() => {
-                            window.location.href = "/users";
+                        swal("Đã xóa!", "Người thu gom đã được xóa", "success").then(() => {
+                            window.location.href = "/blacklist";
                         });
                     },
                     error: function(xhr, status, error) {
@@ -104,27 +99,27 @@
 
         });
 
-    // Xử lý sự kiện click cho nút ban
+    // Xử lý sự kiện click cho nút unban
         $(document).on('click', '#BanBtn', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
             swal({
                 title: "Bạn có chắc không?",
-                text: "Sau khi cấm, người dân sẽ vào danh sách đen!",
+                text: "Sau khi gỡ cấm, người dùng sẽ hoạt động bình thường!",
                 icon: "warning",
-                buttons: [true, "Có, cấm nó đi"],
+                buttons: [true, "Có, gỡ cấm đi"],
                 dangerMode: true,
             }).then((willDelete)=>{
                 if(willDelete)
                 {
                     $.ajax({
                         type: 'GET',
-                        url: '/users/blacklist/' + id,
+                        url: '/blacklist/unban/' + id,
                         success: function(response) {
                             console.log(response);
                             // Xử lý thành công, có thể làm gì đó nếu cần thiết
-                            swal("Đã cấm!", "Người thu gom đã được cấm", "success").then(() => {
-                                window.location.href = "/users";
+                            swal("Đã gỡ cấm!", "Người dùng đã được gỡ cấm", "success").then(() => {
+                                window.location.href = "/blacklist";
                             });
                         },
                         error: function(xhr, status, error) {
@@ -142,6 +137,5 @@
             // Gửi yêu cầu AJAX để xóa người dùng
 
         });
-
     });
 </script>
