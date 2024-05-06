@@ -47,8 +47,8 @@ class CollectionPointController {
                 process.env.APPWRITE_POINT_COLLECTION,
                 sdk.ID.unique(),
                 {
-                    point_lat: req.body.lat,
-                    point_lng: req.body.lng,
+                    point_lat: parseFloat(req.body.lat),
+                    point_lng: parseFloat(req.body.lng),
                     address: req.body.address,
                     label: result.Label,
                     info: req.body.info,
@@ -57,6 +57,7 @@ class CollectionPointController {
             );
             res.status(200).send('success');
         } catch (error) {
+            console.log(error)
             res.status(500).send(error);
         }
     }
@@ -90,8 +91,8 @@ class CollectionPointController {
                 process.env.APPWRITE_POINT_COLLECTION,
                 req.body.id,
                 {
-                    point_lat: req.body.lat,
-                    point_lng: req.body.lng,
+                    point_lat: parseFloat(req.body.lat),
+                    point_lng: parseFloat(req.body.lng),
                     address: req.body.address,
                     label: result.Label,
                     info: req.body.info,
