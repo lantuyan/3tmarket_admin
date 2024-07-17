@@ -10,12 +10,10 @@ class AuthController {
         const { email, password } = req.body;
         // Create session
         await account.createEmailPasswordSession(email, password).then(async (value) => {
-            console.log(value);
             if((await users.get(value.userId)).labels.includes("admin")){
                 req.session.isLoggedIn = true;
                 req.session.sessionId = value.$id;
                 req.session.userId = value.userId;
-                
                 res.redirect('/');
             }else{
                 res.status(400).render('auth/login', { message: "Your account does not have access permissions",title:"Login Page"});
